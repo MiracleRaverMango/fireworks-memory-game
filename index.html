@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="A Simon-Says style memory game with fireworks! Watch fireworks explode, repeat the sequence, and unlock grand finales. Playable on desktop and mobile.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Fireworks Memory Game 🎆">
+<meta property="og:description" content="Test your memory with fireworks! Survive rounds, unlock finales, and challenge yourself daily.">
+<meta property="og:type" content="website">
+<!--<meta property="og:image" content="https://yourdomain.com/screenshot.png"> //replace with actual screenshot path -->
+<meta property="og:url" content="https://MiracleRaverMango.github.io/fireworks-memory-game/">
+
+  <title>Fireworks Memory Game 🎆</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎆</text></svg>">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <canvas id="sky"></canvas>
+
+<!-- Mobile Hamburger Menu -->
+<div id="mobileMenuWrap" class="hidden-on-desktop">
+  <button id="menuToggle" aria-label="Menu" title="Menu">☰</button>
+
+  <div id="mobileMenu" aria-hidden="true">
+    <button id="btnDiff"   title="Change difficulty">Mode</button>
+    <button id="btnMute"   title="Mute/unmute">Mute/unmute 🔊</button>
+    <button id="btnReplay" title="Replay sequence">Replay ⟲</button>
+    <button id="btnEndless" title="Toggle Endless">Endless ∞ </button>
+    <button id="btnDaily"  title="Toggle Daily">Challenge📅</button>
+    <button id="btnInfo"   title="Instructions">Help "?"</button>
+    <button id="btnFeedback" title="Leave Feedback">Feedback 💬</button>
+  </div>
+</div>
+
+
+
+<!-- Instructions Overlay -->
+<div id="instructionsOverlay" class="overlay">
+  <div class="overlay-content">
+    <h2>🎇 Fireworks Memory Game</h2>
+    <p>Welcome! Here’s how to play:</p>
+    <ul>
+      <li>💡 Watch the fireworks explode in sequence.</li>
+      <li>🖱 Click the fireworks back in the same order.</li>
+      <li>🏆 Survive 10 rounds to trigger the Grand Finale.</li>
+      <li>🔥 Endless Mode continues ramping speed after round 10.</li>
+    </ul>
+    <!-- Desktop controls -->
+<p id="controlsDesktop" class="desktop-only">
+  <b>Controls:</b><br>
+  <kbd>A</kbd> = Change difficulty<br>
+  <kbd>M</kbd> = Mute/unmute sound<br>
+  <kbd>E</kbd> = Endless mode<br>
+  <kbd>D</kbd> = Daily challenge<br>
+  <kbd>I</kbd> = Show/Hide instructions
+</p>
+
+<!-- Mobile controls (icons via hamburger menu) -->
+<ul id="controlsMobile" class="mobile-only">
+  <li>Mode: ⚙️ (☰ → Difficulty )</li>
+  <li>Sound: 🔊/🔇 (☰ → Sound)</li>
+  <li>Replay: ⟲ (☰ → Replay)</li>
+  <li>Endless: ∞ (☰ → Endless Mode)</li>
+  <li>Daily: 📅 (☰ → Daily Challenge)</li>
+  <li>Info: ❓ (☰ → Instructions)</li>
+</ul>
+    <button id="closeInstructions">Got it!</button>
+  </div>
+</div>
+
+<div id="hudRound" class="hud-badge">Round 1/10</div>
+<button id="replayBtn"
+  style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);">
+  Replay Sequence
+</button>
+<!-- Optional tiny tip -->
+<div id="kbdTip"
+     style="position:fixed;
+            top:44px;
+            left:50%;
+            transform:translateX(-50%);
+            font-size:.8rem;
+            opacity:.7;
+            z-index:9;
+            user-select:none;
+            text-align:center;   
+            white-space:pre-line">
+  Press “A” to change difficulty • Press “M” to toggle sound • Press “E” to for Endless • Press “D” for Daily Challenge - 💬 <a id="tipFeedback" href="https://github.com/MiracleRaverMango/fireworks-memory-game/issues" target="_blank" rel="noopener">Leave Feedback</a>
+</div>
+</div>
+
+
+    <!-- Start overlay -->
+    <div id="intro" class="overlay">Click to Start 🎆</div>
+
+    <!-- Victory modal -->
+    <div id="victoryModal" class="overlay hidden">
+      <div class="modal">
+        <h1>🎉 Congratulations!</h1>
+        <p>You reached Round 10!</p>
+        <button id="playAgainBtn">Play Again</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+  </main>
+
+  <script src="game.js" defer></script>
+</body>
+</html>

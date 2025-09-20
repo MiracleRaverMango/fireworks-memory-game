@@ -1,0 +1,280 @@
+html, body {
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  background: radial-gradient(circle at 35% 10%, #1a0d12, #3b1f29 50%, #4a2d33 100%);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: white;
+}
+
+#sky {
+  position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: transparent;
+}
+
+/* Overlays */
+.overlay {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+  font-size: 2rem; text-align: center; z-index: 10;
+}
+.hidden { display: none; }
+
+.modal {
+  background: rgba(20,20,32,.95);
+  padding: 1.5rem 2rem; border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 20px 50px rgba(0,0,0,.5); text-align: center;
+}
+button {
+  background: #3fbfbf; border: none; padding: .7rem 1.2rem; border-radius: .6rem;
+  color: white; font-weight: 800; letter-spacing: .2px; cursor: pointer;
+}
+button:hover { background: #5edcdc; }
+
+/* Toast */
+#toast {
+  position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.75); padding: .5rem .9rem; border-radius: .6rem;
+  border: 1px solid rgba(255,255,255,.15);
+  opacity: 0; transition: opacity .25s; z-index: 11; pointer-events: none;
+  font-weight: 700;
+}
+#toast.show { opacity: 1; }
+
+.hud-btn{
+  position: fixed;
+  top: 600px; left: 50%; transform: translateX(-50%);
+  z-index: 9;
+  background: rgba(63,191,191,.85);
+  border: none;
+  padding: .4rem .9rem;
+  border-radius: .5rem;
+  font-size: .9rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+}
+.hud-btn:hover{ background: rgba(95,220,220,.9); }
+
+/* Add to styles.css */
+.hud-btn:disabled{
+  background: rgba(140,140,150,.55);
+  color: rgba(255,255,255,.75);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.hud-btn:disabled:hover{
+  background: rgba(140,140,150,.55);
+}
+
+.hud-badge{
+  position: fixed;
+  top: 8px; left: 50%; transform: translateX(-50%);
+  z-index: 9;
+  background: rgba(20,20,32,.85);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: .35rem .7rem;
+  border-radius: .6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  user-select: none;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  background: #222;
+  color: #eee;
+  max-width: 500px;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  text-align: center;
+  line-height: 1.6;
+  font-size: large;
+}
+
+.overlay-content h2 {
+  margin-bottom: 10px;
+}
+
+.overlay-content ul {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.overlay-content button {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #ff7eb3;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.overlay-content button:hover {
+  background: #ff4d94;
+}
+#replayBtn {
+  position: fixed;
+  bottom: 80px;      /* pushes it down near the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+/* Show hamburger only on small screens */
+.hidden-on-desktop { display: none; }
+@media (max-width: 900px) {
+  .hidden-on-desktop { display: block; }
+}
+
+#mobileMenuWrap {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 30;
+}
+
+/* Toggle button */
+#menuToggle {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+/* Panel */
+#mobileMenu {
+  position: absolute;
+  top: 44px;          /* under the toggle */
+  right: 0;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  min-width: 160px;
+
+  /* hidden by default */
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+#mobileMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#mobileMenu button {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(255,255,255,0.16);
+  text-align: left;
+  cursor: pointer;
+}
+#mobileMenu button:active { transform: translateY(1px); }
+@media (max-width: 900px){
+  #kbdTip { display:none; }
+}
+/* default: show desktop block, hide mobile block */
+.desktop-only { display: block; }
+.mobile-only  { display: none; }
+
+/* on small screens, flip them */
+@media (max-width: 900px){
+  .desktop-only { display: none; }
+  .mobile-only  { display: block; }
+}
+/* Make the victory modal content fit on small screens */
+#victoryModal .modal {
+  /* Size & layout */
+  width: min(90vw, 480px);     /* never wider than the viewport */
+  max-width: 480px;
+  box-sizing: border-box;
+  padding: 1.25rem 1rem;       /* tighter padding for mobile */
+  text-align: center;
+  border-radius: 12px;
+
+  /* Visuals (adjust to taste) */
+  background: #222;            /* or whatever your theme uses */
+  color: #eee;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* If your overlay doesn't already center children, this helps */
+#victoryModal.overlay {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;          /* higher than canvas/toolbars */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);  /* dims the game; also confirms it's above */
+  pointer-events: auto;   /* allow clicks */
+  padding: 16px;               /* prevent edge-to-edge on tiny screens */
+}
+
+#victoryModal.hidden { display: none; }
+
+#victoryModal .modal {
+  pointer-events: auto;   /* ensure inner content is clickable */
+}
+
+/* Scalable typography with sane limits */
+#victoryModal .modal h1 {
+  margin: 0 0 .5rem 0;
+  font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+}
+#victoryModal .modal p {
+  margin: 0 0 .9rem 0;
+  font-size: clamp(.95rem, 3.8vw, 1.1rem);
+  line-height: 1.4;
+}
+
+/* Button: easy to tap, not too wide */
+#victoryModal #playAgainBtn {
+  display: inline-block;
+  width: min(100%, 260px);
+  padding: .6rem 1rem;
+  font-size: clamp(.95rem, 3.8vw, 1.05rem);
+  border: 0;
+  border-radius: 10px;
+  background: #00d4aa;
+  color: #fff;
+  cursor: pointer;
+}
+#victoryModal #playAgainBtn:active { transform: translateY(1px); }
+
+/* Extra-tight phones (under ~360px wide) */
+@media (max-width: 360px) {
+  #victoryModal .modal { padding: 1rem .75rem; }
+}
+#kbdTip a { 
+  color: #00d4aa; 
+  text-decoration: none; 
+  border-bottom: 1px dashed rgba(0,212,170,.5); 
+}
+
+#kbdTip a:hover { text-decoration: underline; }
